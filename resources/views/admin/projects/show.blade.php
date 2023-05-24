@@ -15,6 +15,7 @@
       </div>
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Project id: {{$project->id}}</li>
+        <li class="list-group-item">Project type: {{$project->type?$project->type->name:'No project type selected'}}</li>
       </ul>
     </div>
   </div>

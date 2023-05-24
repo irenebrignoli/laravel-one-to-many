@@ -24,6 +24,13 @@
         Projects
       </a>
     </li>
+    <li>
+      <a href="{{route('admin.types.index')}}" class="nav-link 
+      @guest text-black-50 @else text-dark @endauth
+      {{Route::currentRouteName() == 'admin.types.index'?'active text-white':''}}">
+        Types
+      </a>
+    </li>
   </ul>
 </div>
   

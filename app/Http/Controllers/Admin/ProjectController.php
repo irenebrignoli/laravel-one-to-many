@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use Illuminate\Http\Request;
+use App\Models\Type;
 use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -27,7 +28,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
 
     /**
@@ -72,7 +74,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -82,11 +85,11 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
  
      */
-    public function update(StoreProjectRequest $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
         $form_data = $request->validated();
 
-        $form_data['slug'] = Project::generateSlug( $form_data->title);
+        $form_data['slug'] = Project::generateSlug( $request->title);
 
         $checkProject = Project::where('slug', $form_data['slug'])->where('id', '<>', $project->id)->first();
         if ($checkProject) {

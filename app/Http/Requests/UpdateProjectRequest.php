@@ -27,7 +27,8 @@ class UpdateProjectRequest extends FormRequest
         return [
             'title' => ['required', 'max:150', Rule::unique('projects')->ignore($this->project)],
             'image' => 'nullable|max:255|url',
-            'description' => 'nullable'
+            'description' => 'nullable',
+            'type_id' => 'nullable|exists:types,id'
         ];
     }
 }
